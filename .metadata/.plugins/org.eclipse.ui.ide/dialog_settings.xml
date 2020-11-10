@@ -1,5 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
+	<list key="installedFeatures">
+		<item value="org.eclipse.egit:5.9.0.202009080501-r"/>
+		<item value="org.eclipse.epp.mpc:1.8.4.v20200709-0857"/>
+		<item value="org.eclipse.jgit.gpg.bc:5.9.0.202009080501-r"/>
+		<item value="org.eclipse.jgit.http.apache:5.9.0.202009080501-r"/>
+		<item value="org.eclipse.jgit.ssh.apache:5.9.0.202009080501-r"/>
+		<item value="org.eclipse.jgit.ssh.jsch:5.9.0.202009080501-r"/>
+		<item value="org.eclipse.jgit:5.9.0.202009080501-r"/>
+		<item value="org.eclipse.jpt.jaxb.eclipselink.feature:1.4.202.v201903221940"/>
+		<item value="org.eclipse.jpt.jaxb.feature:1.5.200.v202007091849"/>
+		<item value="org.eclipse.jpt.jpa.eclipselink.feature:3.4.101.v201903221940"/>
+		<item value="org.eclipse.jpt.jpa.feature:3.6.1.v202007091901"/>
+		<item value="org.eclipse.jpt.jpadiagrameditor.feature:1.2.300.v201903221940"/>
+		<item value="org.eclipse.m2e.feature:1.16.1.20200710-1008"/>
+		<item value="org.eclipse.mylyn.commons.identity:1.17.2.v20200813-0821"/>
+		<item value="org.eclipse.mylyn.commons.notifications:1.17.2.v20200813-0821"/>
+		<item value="org.eclipse.mylyn.commons.repositories:1.17.2.v20200813-0821"/>
+		<item value="org.eclipse.mylyn.commons:3.25.2.v20200813-0821"/>
+		<item value="org.eclipse.mylyn.discovery:3.25.2.v20200813-0821"/>
+		<item value="org.eclipse.mylyn.monitor:3.25.2.v20200813-0821"/>
+		<item value="org.eclipse.mylyn.wikitext.editors_feature:3.0.38.202008172112"/>
+		<item value="org.eclipse.mylyn.wikitext_feature:3.0.38.202008172112"/>
+		<item value="org.eclipse.mylyn_feature:3.25.2.v20200814-0512"/>
+		<item value="org.eclipse.php:7.2.0.202005271851"/>
+		<item value="org.eclipse.platform:4.17.0.v20200902-1800"/>
+		<item value="org.eclipse.rcp:4.17.0.v20200902-1800"/>
+		<item value="org.eclipse.wst.common.fproj:3.7.3.v202007142017"/>
+		<item value="org.eclipse.wst.jsdt.chromium.debug.feature:0.6.100.v201908270117"/>
+		<item value="org.eclipse.wst.jsdt.feature:2.3.100.v202008161908"/>
+		<item value="org.eclipse.wst.json_ui.feature:1.1.8.v202004230532"/>
+		<item value="org.eclipse.wst.web_ui.feature:3.19.0.v202008242027"/>
+		<item value="org.eclipse.wst.xml.xpath2.processor.feature:2.0.302.v201909031400"/>
+		<item value="org.eclipse.wst.xml_ui.feature:3.19.0.v202008192217"/>
+		<item value="org.eclipse.wst.xsl.feature:1.3.900.v202005251734"/>
+	</list>
 	<section name="NewWizardAction">
 		<item key="NewWizardSelectionPage.STORE_SELECTED_ID" value="org.eclipse.jdt.ui.wizards.JavaProjectWizard"/>
 		<list key="NewWizardSelectionPage.STORE_EXPANDED_CATEGORIES_ID">
