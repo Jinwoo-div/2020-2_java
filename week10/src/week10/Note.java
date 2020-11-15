@@ -27,6 +27,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import javax.swing.JEditorPane;
+import javax.swing.ImageIcon;
 
 public class Note extends JFrame {
 
@@ -228,6 +229,10 @@ public class Note extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(new GridLayout(1, 0, 0, 0));
+		
+		JLabel lblNewLabel = new JLabel("New label");
+		lblNewLabel.setIcon(new ImageIcon("D:\\download\\Assignment_#13_201921625_KimDaeYeon.png"));
+		contentPane.add(lblNewLabel);
 		
 		JEditorPane editorPane = new JEditorPane();
 		contentPane.add(editorPane);

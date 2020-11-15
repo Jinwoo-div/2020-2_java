@@ -47,7 +47,7 @@
 	</section>
 	<section name="WORKBENCH_SETTINGS">
 		<list key="ENABLED_TRANSFERS">
-			<item value="org.eclipse.ui.preferences"/>
+			<item value="org.eclipse.ui.workbenchTransfer"/>
 			<item value=""/>
 			<item value=""/>
 		</list>
