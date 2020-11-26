@@ -6,6 +6,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Main {
+	public static void main(String[] args) throws IOException {
+		Factorial a = new Factorial(50000);
+		String result = a.getCaculate();
+		exportFile(result);
+	}
 	static void exportFile(String result) throws IOException{
 		BufferedOutputStream bs = null;
 		try{
@@ -18,12 +23,6 @@ public class Main {
 			bs.close();
 		}
 	}
-	public static void main(String[] args) throws IOException {
-		Factorial a = new Factorial(50);
-		String result = a.getCaculate();
-		exportFile(result);
-	}
-	
 }
 
 class Factorial {
@@ -39,6 +38,7 @@ class Factorial {
 	}
 
 	public String getCaculate() {
+		int count = 1;
 		for (int i = 0; i < sum.length(); i++) {
 			num.add(Character.getNumericValue(sum.charAt(i)));
 		}
@@ -71,6 +71,7 @@ class Factorial {
 					}
 				}
 			}
+			System.out.println(count++);
 		}
 		String result = "";
 		for (int i = 0; i < num.size(); i++) {
