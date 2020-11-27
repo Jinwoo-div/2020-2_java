@@ -2,12 +2,10 @@
 import java.io.BufferedOutputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
 
-public class Main {
+public class StrMain {
 	public static void main(String[] args) throws IOException {
-		Factorial a = new Factorial(50000);
+		Factorialstr a = new Factorialstr(50000);
 		String result = a.getCaculate();
 		exportFile(result);
 	}
@@ -25,34 +23,34 @@ public class Main {
 	}
 }
 
-class Factorial {
+class Factorialstr {
 	private int key;
 	private int carry;
 	private String sum;
-	private ArrayList<Integer> num = new ArrayList<Integer>();
-	private ArrayList<Integer> starSum = new ArrayList<Integer>();
+	private String num = "";
+	private String starSum = "";
 	
-	public Factorial(int key) {
+	public Factorialstr(int key) {
 		this.key = key;
 		sum = Integer.toString(this.key);
 	}
 
 	public String getCaculate() {
 		int count = 1;
-		for (int i = 0; i < sum.length(); i++) {
-			num.add(1);
-		}
+		num = "1";
 		for (int i = 1; i < key; i++) {
-			starSum.clear();
-			for (int j = 0; j < num.size(); j++) {
-				starSum.add(num.get(j));
-			}
+			starSum = "";
+			starSum = num;
 			for (int j = 0 ; j < i; j++) {
-				for (int k = num.size() - 1; k > -1; k--) {
-					while(starSum.size() < k + 1) {
-						starSum.add(0, 0);
+				int len = num.length();
+				for (int k = len - 1; k > -1; k--) {
+					while(starSum.length() < k + 1) {
+						starSum = "0" + starSum;
 					}
-					int tmpsum = num.get(k) + starSum.get(k);
+					int tmpsum = (num.charAt(k) - '0');
+					if (starSum.charAt(k) != '0') {
+						tmpsum += (starSum.charAt(k) - '0');
+					}
 					if (carry == 1) {
 						tmpsum += 1;//carry 있음 추가로 더해줌
 					}
@@ -64,19 +62,16 @@ class Factorial {
 					else {
 						carry = 0;
 					}
-					num.set(k, tmpsum);
+					num = num.substring(0, k) + tmpsum + num.substring(k+1);
 					if (carry == 1 && k == 0) {
-						num.add(0, carry);
+						num = carry + num;
 						carry = 0;
 					}
 				}
 			}
 			System.out.println(count++);
 		}
-		String result = "";
-		for (int i = 0; i < num.size(); i++) {
-			result += num.get(i).toString();
-		}
-		return result;
+		
+		return num;
 	}
 }
