@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class Main {
+public class Kari {
 	public static void main(String[] args) throws IOException {
 		Factorial a = new Factorial(50000);
 		String result = a.getCaculate();
@@ -25,7 +25,7 @@ public class Main {
 	}
 }
 
-class Factorial {
+class Factorial2 {
 	private int key;
 	private int carry;
 	private String sum;
@@ -34,7 +34,7 @@ class Factorial {
 	private ArrayList<Integer> allNum = new ArrayList<Integer>();
 	private ArrayList <int[]> aList = new ArrayList<int[]>();
 	
-	public Factorial(int key) {
+	public Factorial2(int key) {
 		this.key = key;
 		sum = Integer.toString(this.key);
 		for (int i = 1; i < key + 1; i++) {
