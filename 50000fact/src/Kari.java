@@ -7,7 +7,7 @@ import java.util.Arrays;
 
 public class Kari {
 	public static void main(String[] args) throws IOException {
-		Factorial a = new Factorial(50000);
+		Factorial2 a = new Factorial2(50000);
 		String result = a.getCaculate();
 		exportFile(result);
 	}
@@ -27,12 +27,12 @@ public class Kari {
 
 class Factorial2 {
 	private int key;
-	private int carry;
+	private int kariCount = 1;
 	private String sum;
-	private ArrayList<Integer> num = new ArrayList<Integer>();
-	private ArrayList<Integer> starSum = new ArrayList<Integer>();
+	private String num;
+	private String starSum;
 	private ArrayList<Integer> allNum = new ArrayList<Integer>();
-	private ArrayList <int[]> aList = new ArrayList<int[]>();
+	private ArrayList <String> aList = new ArrayList<String>();
 	
 	public Factorial2(int key) {
 		this.key = key;
@@ -48,74 +48,117 @@ class Factorial2 {
 		}
 		for (int i = 0; i < key/2; i++) {
 			String tmpNum = allNum.get(i).toString();
-			int arr[] = new int[tmpNum.length()];
-			for (int j = 0 ; j < tmpNum.length(); j++) {
-				arr[j] = tmpNum.charAt(j) - '0';
-			}
-			aList.add(arr);
+			aList.add(tmpNum);
 		}
 	}
 
 	public String getCaculate() {
-		int count = 1;
-		int zeroCount = 0;
-		for (int i = 0; i < aList.get(0).length ; i++) {
-			num.add(aList.get(0)[i]);
-		}
-		int s = allNum.size();
-		for (int i = 0; i < s; i++) {
-			while(true) {
-				int last = num.size() - 1;
-				if (num.lastIndexOf(0) != last) {
-					break;
-				}
-				zeroCount++;
-				num.remove(last);
-			}
-			starSum.clear();
-			for (int j = 0; j < num.size(); j++) {
-				starSum.add(num.get(j));
-			}
-			int t = 0;
-			int q = 0;
-			for (int d = aList.get(i).length -1; d > -1; d--) {
-				int p = 1;
-				for (int w = d; w > 0; w--) {
-					p *= 10;
-				}
-				t += aList.get(i+1)[q] * p; 
-				q++;
-			}
-			for (int j = 1 ; j < t; j++) {
-				for (int k = num.size() - 1; k > -1; k--) {
-					while(starSum.size() < k + 1) {
-						starSum.add(0, 0);
-					}
-					int tmpsum = num.get(k) + starSum.get(k);
-					if (carry == 1) {
-						tmpsum += 1;//carry 있음 추가로 더해줌
-					}
-					if (tmpsum > 9) {// carry 발생
-						
-						tmpsum -= 10; // 남길수 만들기
-						carry = 1;
-					}
-					else {
-						carry = 0;
-					}
-					num.set(k, tmpsum);
-					if (carry == 1 && k == 0) {
-						num.add(0, carry);
-						carry = 0;
-					}
+		for (int i = 0; i < key/2 - 1 ; i++) {
+			num = aList.get(i);
+			starSum = aList.get(i+1);
+			int size = num.length() - starSum.length();
+			if (size != 0) {
+				while(num.length() != starSum.length()) {
+					starSum = "0" + starSum;
 				}
 			}
-			System.out.println(count++);
+			if (num.length() % 2 == 1) {
+				num = "0" + num;
+				starSum = "0" + starSum;
+			}
+			aList.set(i + 1, karitsu(num, starSum));
 		}
-		String result = "";
-		for (int i = 0; i < num.size(); i++) {
-			result += num.get(i).toString();
+		return aList.get(key/2 - 1);
+	}
+	String karitsu(String int1, String int2) {
+		String left, right, ans;
+		if (int1.length() % 2 == 1) {
+			int1 = "0" + int1;
+			int2 = "0" + int2;
 		}
-		return result;
+		while (int1.length() != int2.length()) {
+			if (int1.length() > int2.length()) {
+				int2 = "0" + int2;
+			}
+			else {
+				int1 = "0" + int1;
+			}
+		}
+		if (int1.length() > 2 || int2.length() > 2) {
+			String int1Right = int1.substring(int1.length()/2);
+			String int2Right = int2.substring(int2.length()/2);
+			right = karitsu(int1Right, int2Right);
+			String int1Left = int1.substring(0, int1.length()/2);
+			String int2Left = int2.substring(0, int2.length()/2);
+			left = karitsu(int1Left, int2Left);
+			ans = karitsu(plusString(int2Left, int2Right), plusString(int1Left, int1Right));
+			kariCount++;
+		}
+		else {
+			if(int1.equals("00") || int2.equals("00")) {
+				 return "0";
+			}
+			int[][] num = new int[2][2];
+			num[0][0] = int1.charAt(0) -'0';
+			num[0][1] = int1.charAt(1) -'0';
+			num[1][0] = int2.charAt(0) -'0';
+			num[1][1] = int2.charAt(1) -'0';
+			int a = num[0][0] * num[1][0];
+			int b = num[0][1] * num[1][1];
+			int c = (num[0][0] + num[0][1]) * (num[1][0] + num[1][1]);
+			int altC = c - a - b;
+			String result = Integer.toString((a*100) + (altC* 10));
+			return result;
+		}
+		for (int i = 0; i < kariCount*2; i++) {
+			if (left.equals("0")) {
+				break;
+			}
+			left = left + "0";
+		}
+		for (int i = 0; i < kariCount; i++) {
+			if (ans.equals("0")) {
+				break;
+			}
+			ans = ans + "0";
+		}
+		return plusString(plusString(left, right), ans);
+	}
+	String starString(String int1, String int2) {
+		int result = Integer.parseInt(int1) * Integer.parseInt(int2);
+		return Integer.toString(result);
+	}
+	String plusString(String int1, String int2) {
+		int carry = 0;
+		while(int2.length() < int1.length()) {
+			int2 = "0" + int2;
+		}
+		while(int1.length() < int2.length()) {
+			int1 = "0" + int1;
+		}
+		int len = int1.length();
+		for (int i = len - 1 ; i > -1; i--) {
+			int tmpsum = (int1.charAt(i) - '0');
+			if (int2.charAt(i) != '0') {
+				tmpsum += (int2.charAt(i) - '0');
+			}
+			if (carry == 1) {
+				tmpsum += 1;//carry 있음 추가로 더해줌
+			}
+			if (tmpsum > 9) {// carry 발생
+				
+				tmpsum -= 10; // 남길수 만들기
+				carry = 1;
+			}
+			else {
+				carry = 0;
+			}
+			int1 = int1.substring(0, i) + tmpsum + int1.substring(i+1);
+			if (carry == 1 && i == 0) {
+				int1 = carry + int1;
+				carry = 0;
+			}
+		}
+		return int1;
 	}
 }

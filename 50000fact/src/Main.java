@@ -97,7 +97,7 @@ class Factorial {
 					}
 					if (tmpsum > 9) {// carry 발생
 						
-						tmpsum -= 10; // 남길수 만들기
+					tmpsum -= 10; // 남길수 만들기
 						carry = 1;
 					}
 					else {
