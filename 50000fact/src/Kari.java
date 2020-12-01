@@ -56,67 +56,58 @@ class Factorial2 {
 		for (int i = 0; i < key/2 - 1 ; i++) {
 			num = aList.get(i);
 			starSum = aList.get(i+1);
-			int size = num.length() - starSum.length();
-			if (size != 0) {
-				while(num.length() != starSum.length()) {
-					starSum = "0" + starSum;
-				}
-			}
-			if (num.length() % 2 == 1) {
-				num = "0" + num;
-				starSum = "0" + starSum;
-			}
 			aList.set(i + 1, karitsu(num, starSum));
+			System.out.println(i);
 		}
 		return aList.get(key/2 - 1);
 	}
 	String karitsu(String int1, String int2) {
 		String left, right, ans;
-		if (int1.length() % 2 == 1) {
-			int1 = "0" + int1;
-			int2 = "0" + int2;
-		}
-		while (int1.length() != int2.length()) {
-			if (int1.length() > int2.length()) {
-				int2 = "0" + int2;
-			}
-			else {
-				int1 = "0" + int1;
+		if (int1.length() == 1 || int2.length() == 1) {
+			String plusnum = int1;
+			for (int i = 1; i < Integer.parseInt(int2); i++) {
+				int1 = plusString(int1, plusnum);
 			}
 		}
-		if (int1.length() > 2 || int2.length() > 2) {
-			String int1Right = int1.substring(int1.length()/2);
-			String int2Right = int2.substring(int2.length()/2);
-			right = karitsu(int1Right, int2Right);
-			String int1Left = int1.substring(0, int1.length()/2);
-			String int2Left = int2.substring(0, int2.length()/2);
-			left = karitsu(int1Left, int2Left);
-			ans = karitsu(plusString(int2Left, int2Right), plusString(int1Left, int1Right));
-			kariCount++;
+		int kariNum;
+		if (int1.length() >= int2.length()) {
+			kariNum = int2.length()/2;
 		}
 		else {
-			if(int1.equals("00") || int2.equals("00")) {
-				 return "0";
-			}
-			int[][] num = new int[2][2];
-			num[0][0] = int1.charAt(0) -'0';
-			num[0][1] = int1.charAt(1) -'0';
-			num[1][0] = int2.charAt(0) -'0';
-			num[1][1] = int2.charAt(1) -'0';
-			int a = num[0][0] * num[1][0];
-			int b = num[0][1] * num[1][1];
-			int c = (num[0][0] + num[0][1]) * (num[1][0] + num[1][1]);
-			int altC = c - a - b;
-			String result = Integer.toString((a*100) + (altC* 10));
-			return result;
+			kariNum = int1.length()/2;
 		}
-		for (int i = 0; i < kariCount*2; i++) {
+		String int1Right = int1.substring(kariNum);
+		String int2Right = int2.substring(kariNum);
+		right = karitsu(int1Right, int2Right);
+		String int1Left = int1.substring(0, kariNum);
+		String int2Left = int2.substring(0, kariNum);
+		left = karitsu(int1Left, int2Left);
+		ans = minusString(minusString(karitsu(plusString(int2Left, int2Right), plusString(int1Left, int1Right)), right), left);
+//		kariCount++;
+//		}
+//		else {
+//			if(int1.equals("00") || int2.equals("00")) {
+//				 return "0";
+//			}
+//			int[][] num = new int[2][2];
+//			num[0][0] = int1.charAt(0) -'0';
+//			num[0][1] = int1.charAt(1) -'0';
+//			num[1][0] = int2.charAt(0) -'0';
+//			num[1][1] = int2.charAt(1) -'0';
+//			int a = num[0][0] * num[1][0];
+//			int b = num[0][1] * num[1][1];
+//			int c = (num[0][0] + num[0][1]) * (num[1][0] + num[1][1]);
+//			int altC = c - a - b;
+//			String result = Integer.toString((a*100) + (altC* 10));
+//			return result;
+//		}
+		for (int i = 0; i < kariNum*2; i++) {
 			if (left.equals("0")) {
 				break;
 			}
 			left = left + "0";
 		}
-		for (int i = 0; i < kariCount; i++) {
+		for (int i = 0; i < kariNum; i++) {
 			if (ans.equals("0")) {
 				break;
 			}
@@ -124,9 +115,33 @@ class Factorial2 {
 		}
 		return plusString(plusString(left, right), ans);
 	}
-	String starString(String int1, String int2) {
-		int result = Integer.parseInt(int1) * Integer.parseInt(int2);
-		return Integer.toString(result);
+	String minusString(String int1, String int2) {
+		int carry = 0;
+		while(int2.length() < int1.length()) {
+			int2 = "0" + int2;
+		}
+		int len = int1.length();
+		for (int i = len - 1; i > -1; i--) {
+			int tmpsum = carry + (int1.charAt(i)-'0') - (int2.charAt(i) - '0');
+			if (tmpsum < 0) {
+				carry = -1;
+				tmpsum += 10;
+			}
+			else {
+				carry = 0;
+			}
+			int1 = int1.substring(0, i) + tmpsum + int1.substring(i+1);
+		}
+		for (int i = 0; i < len; i++) {
+			if (int1.charAt(0) == '0') {
+				if (int1.equals("0")) break;
+				int1 = int1.substring(1);
+			}
+			else {
+				break;
+			}
+		}
+		return int1;
 	}
 	String plusString(String int1, String int2) {
 		int carry = 0;
@@ -157,6 +172,15 @@ class Factorial2 {
 			if (carry == 1 && i == 0) {
 				int1 = carry + int1;
 				carry = 0;
+			}
+		}
+		for (int i = 0; i < len; i++) {
+			if (int1.charAt(0) == '0') {
+				if (int1.equals("0")) break;
+				int1 = int1.substring(1);
+			}
+			else {
+				break;
 			}
 		}
 		return int1;
