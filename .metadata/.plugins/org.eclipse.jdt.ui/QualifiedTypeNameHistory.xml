@@ -51,4 +51,7 @@
     <fullyQualifiedTypeName name="java.io.File"/>
     <fullyQualifiedTypeName name="java.nio.channels.FileLockInterruptionException"/>
     <fullyQualifiedTypeName name="Factorial"/>
+    <fullyQualifiedTypeName name="Starmain"/>
+    <fullyQualifiedTypeName name="java.lang.Runnable"/>
+    <fullyQualifiedTypeName name="java.math.BigInteger"/>
 </qualifiedTypeNameHistroy>
