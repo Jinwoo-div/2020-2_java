@@ -9,7 +9,7 @@ public class Starmain {
 	private static ArrayList<ArrayList<Integer>> arr = new ArrayList<ArrayList<Integer>>();
 	private static ArrayList<ArrayList<Integer>> arr2 = new ArrayList<ArrayList<Integer>>();
 	private static boolean sig = false;
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args) throws IOException, InterruptedException {
 		Runnable[] name = new Factorial12[50];
 		Thread[] name2 = new Thread[50];
 		
@@ -18,6 +18,10 @@ public class Starmain {
 			name2[i] = new Thread(name[i]);
 			name2[i].start();
 		}
+		for (int i = 0; i < 50; i++) {
+			name2[i].join();
+		}
+		
 		while (true) {
 			if (arr.size() == 50) {
 				Runnable[] name3 = new starTwo[50];
@@ -27,6 +31,9 @@ public class Starmain {
 					name3[i] = new starTwo(arr.get(i*2), arr.get((i*2)+1));
 					name4[i] = new Thread(name3[i]);
 					name4[i].start();//sig true arr2 add
+				}
+				for (int i = 0; i < 25; i++) {
+					name4[i].join();
 				}
 				while (true) {
 					if (arr2.size() == 25) {
@@ -39,6 +46,9 @@ public class Starmain {
 					name3[i] = new starTwo(arr2.get(i*2), arr2.get((i*2)+1));
 					name4[i] = new Thread(name3[i]);
 					name4[i].start();
+				}
+				for (int i = 0; i < 12; i++) {
+					name4[i].join();
 				}
 				while (true) {
 					if (arr.size() == 12) {
@@ -53,9 +63,12 @@ public class Starmain {
 					name4[i] = new Thread(name3[i]);
 					name4[i].start();
 				}
+				for (int i = 0; i < 6; i++) {
+					name4[i].join();
+				}
 				while (true) {
 					if (arr2.size() == 6) {
-						arr2.add(arr.get(13));
+						arr2.add(arr.get(12));
 						arr.clear();
 						break;
 					}
@@ -66,9 +79,12 @@ public class Starmain {
 					name4[i] = new Thread(name3[i]);
 					name4[i].start();
 				}
+				for (int i = 0; i < 3; i++) {
+					name4[i].join();
+				}
 				while (true) {
 					if (arr.size() == 3) {
-						arr.add(arr.get(7));
+						arr.add(arr2.get(6));
 						arr2.clear();
 						break;
 					}
@@ -78,6 +94,9 @@ public class Starmain {
 					name3[i] = new starTwo(arr.get(i*2), arr.get((i*2)+1));
 					name4[i] = new Thread(name3[i]);
 					name4[i].start();
+				}
+				for (int i = 0; i < 2; i++) {
+					name4[i].join();
 				}
 				while (true) {
 					if (arr2.size() == 2) {
@@ -91,6 +110,9 @@ public class Starmain {
 					name4[i] = new Thread(name3[i]);
 					name4[i].start();
 				}
+				for (int i = 0; i < 1; i++) {
+					name4[i].join();
+				}
 				while (true) {
 					if (arr.size() == 1) {
 						arr2.clear();
@@ -99,7 +121,7 @@ public class Starmain {
 				}
 				String result = "";
 				for (int i = 0; i < arr.size(); i++) {
-					result += arr.get(i).toString();
+					result = result + arr.get(0).get(i).toString();
 				}
 				exportFile(result);
 				break;
@@ -258,21 +280,12 @@ class Factorial12 implements Runnable {
 	}
 	public ArrayList<Integer> getCaculate() {
 		int c = allNum.size();
-		int zeroCount = 0;
 		String firstNum = allNum.get(0).toString();
 		for (int j = 0; j < firstNum.length(); j++) {
 			num.add(firstNum.charAt(j) - '0');
 		}
 		int s = allNum.size();
 		for (int i = 1; i < s; i++) {
-			while(true) {
-				int last = num.size() - 1;
-				if (num.lastIndexOf(0) != last) {
-					break;
-				}
-				zeroCount++;
-				num.remove(last);
-			}
 			starSum.clear();
 			String tmpNum = allNum.get(i).toString();
 			for (int j = 0; j < tmpNum.length(); j++) {
@@ -284,9 +297,6 @@ class Factorial12 implements Runnable {
 				num.add(0, tnum.get(j));
 			}
 			System.out.println(c--);
-		}
-		for (int i = 0; i < zeroCount; i++) {
-			num.add(0);
 		}
 		return num;
 	}
