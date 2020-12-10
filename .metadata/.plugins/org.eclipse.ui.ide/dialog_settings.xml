@@ -58,6 +58,7 @@
 		<item key="SmartImportRootWizardPage.STORE_NESTED_PROJECTS" value="true"/>
 		<item key="SmartImportRootWizardPage.STORE_CONFIGURE_NATURES" value="true"/>
 		<list key="org.eclipse.ui.internal.wizards.datatransfer.SmartImportRootWizardPage.knownSources">
+			<item value="C:\Users\CHOI\Documents\카카오톡 받은 파일\HP_4_Kim_Daeyeon_201921625"/>
 			<item value="D:\Desktop\activate\Java\2020-2학기_Java"/>
 		</list>
 	</section>
