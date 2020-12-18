@@ -4,6 +4,8 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import java.awt.GridLayout;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.util.HashMap;
 
 import javax.swing.JLabel;
@@ -31,7 +33,7 @@ import java.util.Random;
 
 public class Ui {
 
-	private JFrame frame;
+	public static JFrame frame;
 	private static JPanel game;
 	private static HashMap<String, Component> things;
 	private static JLabel Score;
@@ -45,6 +47,8 @@ public class Ui {
 		Ui window = new Ui();
 		window.frame.setVisible(true);
 	}
+	
+
 	public void makeMap() {
 		things = new HashMap<String, Component>();
 		Component[] components = game.getComponents();
@@ -63,6 +67,9 @@ public class Ui {
 			return null;
 		}
 	}
+	public static JPanel returnPanel() {
+		return game;
+	}
 	/**
 	 * Create the application.
 	 */
@@ -80,7 +87,6 @@ public class Ui {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		Border gameLine = BorderFactory.createLineBorder(Color.white);
 		frame.getContentPane().setLayout(new GridLayout(0, 2, 0, 0));
-		
 		game = new JPanel();
 		game.setBackground(Color.black);
 		frame.getContentPane().add(game);
@@ -138,7 +144,36 @@ public class Ui {
 		makeMap();
 	}
 }
+class keys implements KeyListener {
+	
 
+	@Override
+	public void keyTyped(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void keyPressed(KeyEvent e) {
+		if (e.getKeyCode() == 39) {
+			System.out.println("right");
+		}//right
+		if (e.getKeyCode() == 37) {
+			System.out.println("left");
+
+		}//left
+		if (e.getKeyCode() == 38) {
+		}//up
+		if (e.getKeyCode() == 40) {
+		}//down
+	}
+
+	@Override
+	public void keyReleased(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+}
 //class block implements Runnable {
 //	public ArrayList<Color> blockColor = new ArrayList<Color>();
 //	public ArrayList<Integer> order = new ArrayList<Integer>();
