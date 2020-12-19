@@ -4,6 +4,7 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import java.awt.GridLayout;
+import java.awt.Window;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.HashMap;
@@ -30,16 +31,37 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Random;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.Dimension;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class Ui {
 
 	public static JFrame frame;
 	private static JPanel game;
 	private static HashMap<String, Component> things;
-	private static JLabel Score;
-	private JLabel HighScore;
-	private JMenuItem pause;
+	public static JLabel Score;
+	public static JLabel HighScore;
 	public JButton block[][] = new JButton[20][10];
+	public static JMenuItem saveGame;
+	public static JMenuItem loadGame;
+	public static JButton pause;
+	public static JPanel panel;
+	public static JButton btnNewButton;
+	public static JButton btnNewButton_1;
+	public static JPanel showNext;
+	public static JButton b31;
+	public static JButton b11;
+	public static JButton b12;
+	public static JButton b21;
+	public static JButton b22;
+	public static JButton b41;
+	public static JButton b32;
+	public static JButton b42;
+	public static JMenuItem endProgram;
+	public static JMenuItem endGame;
 	/**
 	 * Launch the application.
 	 */
@@ -47,7 +69,9 @@ public class Ui {
 		Ui window = new Ui();
 		window.frame.setVisible(true);
 	}
-	
+	public static void restart() {
+		frame.dispose();
+	}
 
 	public void makeMap() {
 		things = new HashMap<String, Component>();
@@ -104,74 +128,136 @@ public class Ui {
 		JPanel info = new JPanel();
 		info.setBackground(Color.black);
 		frame.getContentPane().add(info);
-		info.setLayout(null);
+		info.setLayout(new GridLayout(0, 1, 0, 0));
 		
 		HighScore = new JLabel("<html>" + "HighScore" + "<br>" + "00000" + "<html>", SwingConstants.CENTER);
-		HighScore.setBounds(0, 155, 326, 136);
 		HighScore.setName("HighScore");
 		HighScore.setBorder(gameLine);
 		HighScore.setForeground(Color.white);
 		info.add(HighScore);
 		
 		Score = new JLabel("<html>" + "Score" + "<br>" + "00000" + "<html>", SwingConstants.CENTER);
-		Score.setBounds(0, 326, 326, 136);
 		Score.setName("Score");
 		Score.setBorder(gameLine);
 		Score.setForeground(Color.white);
 		info.add(Score);
 		
+		panel = new JPanel();
+		info.add(panel);
+		panel.setLayout(new GridLayout(1, 0, 0, 0));
+		
+		showNext = new JPanel();
+		panel.add(showNext);
+		showNext.setLayout(new GridLayout(4, 2, 0, 0));
+		
+		b11 = new JButton("");
+		b11.setBackground(Color.black);
+		b11.setBorder(gameLine);
+		showNext.add(b11);
+		
+		b12 = new JButton("");
+		b12.setBackground(Color.black);
+		b12.setBorder(gameLine);
+		showNext.add(b12);
+		
+		b21 = new JButton("");
+		b21.setBackground(Color.black);
+		b21.setBorder(gameLine);
+		showNext.add(b21);
+		
+		b22 = new JButton("");
+		b22.setBackground(Color.black);
+		b22.setBorder(gameLine);
+		showNext.add(b22);
+		
+		b31 = new JButton("");
+		b31.setBackground(Color.black);
+		b31.setBorder(gameLine);
+		showNext.add(b31);
+		
+		b32 = new JButton("");
+		b32.setBackground(Color.black);
+		b32.setBorder(gameLine);
+		showNext.add(b32);
+		
+		b41 = new JButton("");
+		b41.setBackground(Color.black);
+		b41.setBorder(gameLine);
+		showNext.add(b41);
+		
+		b42 = new JButton("");
+		b42.setBackground(Color.black);
+		b42.setBorder(gameLine);
+		showNext.add(b42);
+		
+		
+		btnNewButton_1 = new JButton();
+		btnNewButton_1.setBackground(Color.black);
+		panel.add(btnNewButton_1);
+		
+		btnNewButton = new JButton();
+		btnNewButton.setBackground(Color.black);
+		panel.add(btnNewButton);
+		
+		pause = new JButton("일시정지");
+		info.add(pause);
+		
 		JMenuBar menu = new JMenuBar();
 		frame.setJMenuBar(menu);
-		
-		JMenu fileTab = new JMenu("파일");
+		menu.setFocusable(false);
+		JMenu fileTab = new JMenu("메뉴");
 		menu.add(fileTab);
 		
-		JMenuItem saveGame = new JMenuItem("저장");
+		saveGame = new JMenuItem("저장");
 		fileTab.add(saveGame);
 		
-		JMenuItem loadGame = new JMenuItem("불러오기");
+		loadGame = new JMenuItem("불러오기");
 		fileTab.add(loadGame);
 		
-		pause = new JMenuItem("일시정지");
-		fileTab.add(pause);
-		
-		JMenuItem endGame = new JMenuItem("게임종료");
+		endGame = new JMenuItem("게임 종료");
 		fileTab.add(endGame);
 		
-		JMenu settingTab = new JMenu("설정");
-		menu.add(settingTab);
+		endProgram = new JMenuItem("프로그램 종료");
+		endProgram.setActionCommand("");
+		fileTab.add(endProgram);
 		
 		makeMap();
 	}
-}
-class keys implements KeyListener {
-	
-
-	@Override
-	public void keyTyped(KeyEvent e) {
-		// TODO Auto-generated method stub
-		
+	public JMenuItem getLoadGame() {
+		return loadGame;
 	}
-
-	@Override
-	public void keyPressed(KeyEvent e) {
-		if (e.getKeyCode() == 39) {
-			System.out.println("right");
-		}//right
-		if (e.getKeyCode() == 37) {
-			System.out.println("left");
-
-		}//left
-		if (e.getKeyCode() == 38) {
-		}//up
-		if (e.getKeyCode() == 40) {
-		}//down
+	public JLabel getScore() {
+		return Score;
 	}
-
-	@Override
-	public void keyReleased(KeyEvent e) {
-		// TODO Auto-generated method stub
-		
+	public JLabel getHighScore() {
+		return HighScore;
+	}
+	public JButton getB11() {
+		return b11;
+	}
+	public JButton getB12() {
+		return b12;
+	}
+	public JButton getB21() {
+		return b21;
+	}
+	public JButton getB22() {
+		return b22;
+	}
+	public JButton getB31() {
+		return b31;
+	}
+	public JButton getB32() {
+		return b32;
+	}
+	public JButton getB41() {
+		return b41;
+	}
+	public JButton getB42() {
+		return b42;
+	}
+	public JMenuItem getEndProgram() {
+		return endProgram;
 	}
 }
 //class block implements Runnable {
